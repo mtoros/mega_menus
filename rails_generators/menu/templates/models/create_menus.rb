@@ -1,0 +1,20 @@
+class <%= "#{'Create' + file_name.capitalize + 's'}" %> < ActiveRecord::Migration
+  def self.up
+    create_table <%= ":#{file_name + 's'}" %> do |t|
+      t.string     :title
+      t.string     :link
+      t.integer    :parent_id
+      t.integer    :position
+      t.integer    :absolute_position
+      t.integer    :depth
+      t.timestamps
+    end
+    
+    <%= file_name.capitalize %>.create :id => 1
+  end
+  
+
+  def self.down
+    drop_table <%= ":#{file_name + 's'}" %>
+  end
+end

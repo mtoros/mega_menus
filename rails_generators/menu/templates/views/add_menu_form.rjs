@@ -1,0 +1,2 @@
+page.toggle "add_menu_form_#{@menu_id}"
+

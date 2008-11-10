@@ -1,0 +1,4 @@
+*.kdevelop
+*.kdevses
+*~
+pkg/*
