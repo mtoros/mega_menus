@@ -82,7 +82,7 @@ module <%= "#{file_name.capitalize}Helper" %>
       concat text_field_tag "link", "link"
       concat hidden_field_tag :menu_id, menu_id
       #content_tag :button, "Submit", {:type=>"submit", :class=>"button-submit"}
-      concat submit_tag "Add"
+      concat submit_tag "Add", :class => "add_edit_button"
       concat "</div>"
       end
       return nil
@@ -100,7 +100,7 @@ module <%= "#{file_name.capitalize}Helper" %>
       concat text_field_tag "parent_id", m.parent_id
       concat hidden_field_tag :menu_id, m.id
       #concat content_tag :button, "Submit", {:type=>"submit", :class=>"button-submit"}
-      concat submit_tag "Edit"
+      concat submit_tag "Edit", :class => "add_edit_button"
       concat "</div>"
     end
     return nil
