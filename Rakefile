@@ -5,12 +5,12 @@ require 'rake'
 begin
   require 'echoe'
 
-  Echoe.new('mega_menus', '0.1.3') do |p|
-    p.summary        = "acts_as_menu Rails gem."
-    p.description    = "acts_as_menu Rails gem."
+  Echoe.new('mega_menus', '0.4.9') do |p|
+    p.summary        = "Treeview menu Gem for Rails"
+    p.description    = "Adds a model, controller to perform the tasks in order to have a treeview menu. To use this gem simply install it and write script/generate menu name_of_the_menu"
     p.author         = ['Marko Toros', 'Rails Core']
     p.email          = "mtoros@gmail.com"
-    p.url            = "http://www.krogla.si"
+    #p.url            = ""
   end
 rescue LoadError => boom
   puts "You are missing a dependency required for meta-operations on this gem."
