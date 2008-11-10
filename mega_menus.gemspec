@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name = %q{mega_menus}
-  s.version = "0.4.9"
+  s.version = "0.5.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Marko Toros, Rails Core"]
+  s.authors = ["Marko Toros"]
   s.date = %q{2008-11-10}
   s.description = %q{Adds a model, controller to perform the tasks in order to have a treeview menu. To use this gem simply install it and write script/generate menu name_of_the_menu}
   s.email = %q{mtoros@gmail.com}
