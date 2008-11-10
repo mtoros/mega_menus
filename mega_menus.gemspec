@@ -3,8 +3,8 @@ Gem::Specification.new do |s|
   s.version = '0.4.1'
   s.date    = '2008-11-10'
   
-  s.summary = "Treeview Online Editing Menus "
-  s.description = "This is a gem for editing a menu structure."
+  s.summary = "Treeview Menus Gem for Rails"
+  s.description = "A Rails Gem for editing a treeview menu structure."
   
   s.authors  = ['Marko Toros']
   s.email    = 'mtoros@gmail.com'

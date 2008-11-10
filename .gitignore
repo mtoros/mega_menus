@@ -2,3 +2,6 @@
 *.kdevses
 *~
 pkg/*
+*.gem
+*.kdevelop
+*.kdevses
