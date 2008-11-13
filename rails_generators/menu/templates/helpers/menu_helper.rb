@@ -52,11 +52,12 @@ module <%= "#{file_name.capitalize}Helper" %>
           #write the actual menu line for each record
           concat "<li>"
           #make the selected view appear nicer
-          if(m.id==params[:menu_id].to_i or m.link==request.request_uri)
+          if(m.id==params[:menu_id].to_i or m.id==session[:menu_id])
             concat "<div id=\"selected_mega_menu\">"
+            session[:menu_id]=m.id
           end
-          concat link_to  "#{m.title} #{m.id} ",  m.link, {:class => "menu_link_depth_#{m.depth}", :id => "menu_link_#{m.id}"}
-          if(m.id==params[:menu_id].to_i or m.link==request.request_uri)
+          concat link_to  "#{m.title} #{m.id} ",   {:url=>m.link, :menu_id => m.id}, {:class => "menu_link_depth_#{m.depth}", :id => "menu_link_#{m.id}"}
+          if(m.id==params[:menu_id].to_i or m.id==session[:menu_id])
             concat "</div>"
           end
           if(admin_condition)
