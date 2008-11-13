@@ -1,2 +1,7 @@
-<%= "The last parameter determines normal mode(FALSE) or edit mode(TRUE)...remove this annoying line" %>
-<%% mega_menus(<%= file_name.capitalize %>, <%= "'#{file_name+ "editor"}'"%>, TRUE) %>
+<div id="mega_menus">
+<%= "The 3. parameter determines normal mode(FALSE) or edit mode(TRUE)...remove this annoying line" %>
+<br/>
+<%= "The 4. parameter determines the depth of the menus to be shown...remove this annoying line" %>
+<br/>
+<%% mega_menus(<%= file_name.capitalize %>, <%= "'#{file_name+ "editor"}'"%>, TRUE, 1..10) %>
+</div>
