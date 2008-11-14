@@ -1,6 +1,6 @@
 class <%= "#{'Create' + file_name.capitalize + 's'}" %> < ActiveRecord::Migration
   def self.up
-    create_table <%= ":#{file_name + 's'}" %> do |t|
+    create_table <%= ":#{file_name + 's'}" %>,:force => true do |t|
       t.string     :title
       t.string     :link
       t.integer    :parent_id
