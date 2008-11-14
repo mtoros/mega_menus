@@ -23,8 +23,7 @@ module <%= "#{file_name.capitalize}Helper" %>
   def html_generation(menu_model, menu_controller,admin_condition, admin_depth)
     if(admin_condition)
       if(admin_depth.include?(1))
-        concat "Add Root:"
-        concat link_to_remote  "Add", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => 1,:menu_model=>menu_model, :menu_controller=>menu_controller } }, {:class => "menu_links_add_0", :id => "add_child_link_#{1}"}
+        concat link_to_remote  "Add", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => 1,:menu_model=>menu_model, :menu_controller=>menu_controller } }, {:class => "menu_links_add", :id => "add_menu_link_1"}
         add_menu_form(menu_model, menu_controller,1)
       end
     end
@@ -66,14 +65,14 @@ module <%= "#{file_name.capitalize}Helper" %>
             session[:menu_id]=menu_id
           else
             concat "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class\">"
-            concat "<a  class=\"menu_link_depth_#{m.depth}\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} #{m.id} </a>"
+            concat "<a  class=\"menu_link\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} #{m.id} </a>"
           end
           if(admin_condition)
-            concat link_to_remote  "Add", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add_#{m.depth}", :id => "add_menu_link_#{m.id}"}
-            concat link_to_remote  "Delete", {:url => {:controller => menu_controller, :action => 'delete_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_delete_#{m.depth}", :id => "delete_menu_link_#{m.id}"}
-            concat link_to_remote  "Edit", {:url => {:controller => menu_controller, :action => 'edit_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_edit_#{m.depth}", :id => "edit_menu_link_#{m.id}"}
-            concat link_to_remote  "Up", {:url => {:controller => menu_controller, :action => 'up_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_up_#{m.depth}",:id => "up_menu_link_#{m.id}"}
-            concat link_to_remote  "Down", {:url => {:controller => menu_controller, :action => 'down_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_down_#{m.depth}", :id => "down_menu_link_#{m.id}"}
+            concat link_to_remote  "Add", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :id => "add_menu_link_#{m.id}"}
+            concat link_to_remote  "Delete", {:url => {:controller => menu_controller, :action => 'delete_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_delete", :id => "delete_menu_link_#{m.id}"}
+            concat link_to_remote  "Edit", {:url => {:controller => menu_controller, :action => 'edit_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_edit", :id => "edit_menu_link_#{m.id}"}
+            concat link_to_remote  "Up", {:url => {:controller => menu_controller, :action => 'up_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_up",:id => "up_menu_link_#{m.id}"}
+            concat link_to_remote  "Down", {:url => {:controller => menu_controller, :action => 'down_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_down", :id => "down_menu_link_#{m.id}"}
             add_menu_form(menu_model, menu_controller,m.id)
             edit_menu_form(menu_model, menu_controller,m)
           end
@@ -81,13 +80,12 @@ module <%= "#{file_name.capitalize}Helper" %>
         end
       end
     end
-    
-
+    pmd.downto(1) {concat "</ul>"}
     return nil
   end
   
   def add_menu_form(menu_model, menu_controller, menu_id)
-      form_remote_tag  :url => {:controller=>menu_controller, :action=> 'add_menu'}, :html => {:id => "add_menu_form_#{menu_id}", :style=>"display: none"}  do
+      form_remote_tag  :url => {:controller=>menu_controller, :action=> 'add_menu'}, :html => {:id => "add_menu_form_#{menu_id}", :class => "add_menu_form", :style=>"display: none"}  do
       concat "Title:" 
       concat text_field_tag "title", "title"
       concat "Link:"
@@ -101,7 +99,7 @@ module <%= "#{file_name.capitalize}Helper" %>
 
 
   def edit_menu_form(menu_model, menu_controller,m)
-    form_remote_tag  :url => {:controller=>menu_controller, :action=> 'edit_menu'}, :html => {:id => "edit_menu_form_#{m.id}", :style=>"display: none"}  do
+    form_remote_tag  :url => {:controller=>menu_controller, :action=> 'edit_menu'}, :html => {:id => "edit_menu_form_#{m.id}",:class => "edit_menu_form", :style=>"display: none"}  do
       concat "Title:" 
       concat text_field_tag "title", m.title
       concat "Link:"
