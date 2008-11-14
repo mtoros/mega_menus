@@ -25,7 +25,7 @@ The current version creates:
 * Rails 2.2 
 
 == NOTES:
-* The menu is located in <div id="mega_menus\">
+* The menu is  located in <ul id="ul_menu_#{m.depth}" class="ul_menu_depth_#{m.depth}">
 * The selected menu is located in <li class="li_menu_class_selected">
 * This two id and class values can be easly changed by editing the mega_menu partial and its helper.
 

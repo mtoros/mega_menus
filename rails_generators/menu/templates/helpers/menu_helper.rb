@@ -21,20 +21,10 @@ module <%= "#{file_name.capitalize}Helper" %>
   end
 
   def html_generation(menu_model, menu_controller,admin_condition, admin_depth)
-    if(admin_condition)
-      if(admin_depth.include?(1))
-        concat link_to_remote(  "Add", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => 1,:menu_model=>menu_model, :menu_controller=>menu_controller } }, {:class => "menu_links_add", :id => "add_menu_link_1"})
-        add_menu_form(menu_model, menu_controller,1)
-      end
-    end
-    menu_list(menu_model, menu_controller,admin_condition, admin_depth)
-  end
-
-  def menu_list(menu_model, menu_controller,admin_condition,admin_depth)
     allmenus=menu_model.find(:all, :order => "absolute_position")
     #mdp...previous menu depth
     pmd=1
-    
+
     if(!params[:menu_id].nil?)
         menu_id=params[:menu_id]
     elsif(!session[:menu_id].nil?)
@@ -48,10 +38,18 @@ module <%= "#{file_name.capitalize}Helper" %>
         #check if your depth is correct
         if(admin_depth.include?(m.depth))
           if(firstm)
-            concat( "<ul class=\"ul_menu_depth_#{m.depth}\">")
+            concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth}\">")
+            if(admin_condition)
+              if(admin_depth.include?(1))
+                concat( "<li id=\"root_add\" class=\"root_add\">")
+                concat link_to_remote(  "Add", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => 1,:menu_model=>menu_model, :menu_controller=>menu_controller } }, {:class => "menu_links_add", :id => "add_menu_link_1"})
+                add_menu_form(menu_model, menu_controller,1)
+                concat( "</li>")
+              end
+            end    
             firstm=FALSE
           elsif(m.depth > pmd)
-            concat( "<ul class=\"ul_menu_depth_#{m.depth}\">")
+            concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth}\">")
           elsif(m.depth < pmd)
             pmd.downto(m.depth+1) {concat( "</ul>")}
           end

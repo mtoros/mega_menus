@@ -1,1 +1,1 @@
-page.replace_html "mega_menus", :partial => <%= "'#{file_name}editor/#{file_name}'" %> 
+page.replace "ul_menu_1", :partial => <%= "'#{file_name}editor/#{file_name}'" %> 
