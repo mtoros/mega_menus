@@ -1,5 +1,6 @@
 Manifest
-README
+README.rdoc
+init.rb
 Rakefile
 lib/mega_menus.rb
 lib/mega_menus/editor.rb

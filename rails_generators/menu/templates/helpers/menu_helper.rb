@@ -36,6 +36,7 @@ module <%= "#{file_name.capitalize}Helper" %>
     #mdp...previous menu depth
     pmd=1
     firstm=TRUE
+    selectm=TRUE
     allmenus.each do |m|
       if(m.id!=1)
         #check if your depth is correct
@@ -52,13 +53,14 @@ module <%= "#{file_name.capitalize}Helper" %>
           #write the actual menu line for each record
           concat "<li>"
           #make the selected view appear nicer
-          if(m.id==params[:menu_id].to_i or m.id==session[:menu_id])
+          if((m.id==params[:menu_id].to_i or (m.id==session[:menu_id]) and selectm))
             concat "<div id=\"selected_mega_menu\">"
             session[:menu_id]=m.id
-          end
-          concat link_to  "#{m.title} #{m.id} ",   {:url=>m.link, :menu_id => m.id}, {:class => "menu_link_depth_#{m.depth}", :id => "menu_link_#{m.id}"}
-          if(m.id==params[:menu_id].to_i or m.id==session[:menu_id])
+            concat link_to  "#{m.title} #{m.id} ",   {:url=>m.link, :menu_id => m.id}, {:class => "menu_link_depth_#{m.depth}", :id => "menu_link_#{m.id}"}
             concat "</div>"
+            selectm=false
+          else
+            concat link_to  "#{m.title} #{m.id} ",   {:url=>m.link, :menu_id => m.id}, {:class => "menu_link_depth_#{m.depth}", :id => "menu_link_#{m.id}"}
           end
           if(admin_condition)
             concat link_to_remote  "Add", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add_#{m.depth}", :id => "add_menu_link_#{m.id}"}
