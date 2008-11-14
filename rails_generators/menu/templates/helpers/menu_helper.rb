@@ -35,8 +35,15 @@ module <%= "#{file_name.capitalize}Helper" %>
     allmenus=menu_model.find(:all, :order => "absolute_position")
     #mdp...previous menu depth
     pmd=1
+    
+    if(!params[:menu_id].nil?)
+        menu_id=params[:menu_id]
+    elsif(!session[:menu_id].nil?)
+        menu_id=session[:menu_id]
+    end
+    #concat "p= #{params[:menu_id]} ... s= #{session[:menu_id]} .... menu_id = #{menu_id} "
+  
     firstm=TRUE
-    selectm=TRUE
     allmenus.each do |m|
       if(m.id!=1)
         #check if your depth is correct
@@ -53,14 +60,13 @@ module <%= "#{file_name.capitalize}Helper" %>
           #write the actual menu line for each record
           
           #make the selected view appear nicer
-          if((m.id==params[:menu_id].to_i or (m.id==session[:menu_id]) and selectm))
+          if(m.id==menu_id.to_i)
             concat "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class_selected\">"
-            session[:menu_id]=m.id
-            concat link_to  "#{m.title} #{m.id} ",   {:url=>m.link, :menu_id => m.id}, {:class => "menu_link_depth_#{m.depth}", :id => "menu_link_#{m.id}"}
-            selectm=false
+            concat "<a  class=\"selected_menu\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} #{m.id} </a>"
+            session[:menu_id]=menu_id
           else
             concat "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class\">"
-            concat link_to  "#{m.title} #{m.id} ",   {:url=>m.link, :menu_id => m.id}, {:class => "menu_link_depth_#{m.depth}", :id => "menu_link_#{m.id}"}
+            concat "<a  class=\"menu_link_depth_#{m.depth}\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} #{m.id} </a>"
           end
           if(admin_condition)
             concat link_to_remote  "Add", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add_#{m.depth}", :id => "add_menu_link_#{m.id}"}
@@ -82,15 +88,13 @@ module <%= "#{file_name.capitalize}Helper" %>
   
   def add_menu_form(menu_model, menu_controller, menu_id)
       form_remote_tag  :url => {:controller=>menu_controller, :action=> 'add_menu'}, :html => {:id => "add_menu_form_#{menu_id}", :style=>"display: none"}  do
-      concat "<div>" 
       concat "Title:" 
       concat text_field_tag "title", "title"
       concat "Link:"
       concat text_field_tag "link", "link"
       concat hidden_field_tag :menu_id, menu_id
       #content_tag :button, "Submit", {:type=>"submit", :class=>"button-submit"}
-      concat submit_tag "Add", :class => "add_edit_button"
-      concat "</div>"
+      concat submit_tag "Add", :class => "add_button"
       end
       return nil
   end
@@ -98,7 +102,6 @@ module <%= "#{file_name.capitalize}Helper" %>
 
   def edit_menu_form(menu_model, menu_controller,m)
     form_remote_tag  :url => {:controller=>menu_controller, :action=> 'edit_menu'}, :html => {:id => "edit_menu_form_#{m.id}", :style=>"display: none"}  do
-      concat "<div>"  
       concat "Title:" 
       concat text_field_tag "title", m.title
       concat "Link:"
@@ -107,8 +110,7 @@ module <%= "#{file_name.capitalize}Helper" %>
       concat text_field_tag "parent_id", m.parent_id
       concat hidden_field_tag :menu_id, m.id
       #concat content_tag :button, "Submit", {:type=>"submit", :class=>"button-submit"}
-      concat submit_tag "Edit", :class => "add_edit_button"
-      concat "</div>"
+      concat submit_tag "Edit", :class => "edit__button"
     end
     return nil
   end
