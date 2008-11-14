@@ -5,12 +5,17 @@
 This gem makes working with menu structures in Rails easier. 
 
 == FEATURES/PROBLEMS:
-The current version creates
+The current version creates:
 * a controller for editing the menu
   * views associated to methods written in rjs
   * a partial for rendering the menu(for example to be rendered from a menu)
   * a helper to configure its working in normal mode and edit mode, selection of menu depths(levels) to be shown 
-  * the builtin functions are: add, delete, edit, move up, move down,
+  * the builtin functions are:
+    * add
+    * delete
+    * edit
+    * move up
+    * move down
 * a model for storing the menu with fields absolute_position and depth to improve performance when the menu is in normal mode
 * a generator for rails to ease the developers work for using this gem, the menu generator creates a template menu structure that the developer can customize.
 * uses session[:menu_id] to identify the selected menu
