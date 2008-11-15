@@ -91,7 +91,7 @@ module <%= "#{file_name.capitalize}Helper" %>
         end
       end
     end
-    if(firstm==TRUE and <%= "#{file_name.capitalize}" %>.exists?(admin_parent))
+    if(firstm==TRUE and <%= "#{file_name.capitalize}" %>.exists?(admin_parent) and admin_parent!=1 and <%= "#{file_name.capitalize}" %>.find(admin_parent).depth==admin_depth.first-1)
       concat( "<ul id=\"ul_menu_#{admin_depth.first}\" class=\"ul_menu_depth_#{admin_depth.first} ul_menu\">")
       if(admin_condition)
         concat( "<li id=\"root_add_#{admin_parent}\" class=\"root_add\">")
