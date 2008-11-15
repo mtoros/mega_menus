@@ -34,6 +34,15 @@ module <%= "#{file_name.capitalize}Helper" %>
     firstm=TRUE
     allmenus.each do |m|
       #write the actual menu line for each record
+      if(m.id==1 and m.children.empty? and admin_depth.include?(m.depth))
+        concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth} ul_menu\">")
+          if(admin_condition)
+            concat( "<li id=\"root_add_#{m.id}\" class=\"root_add\">")
+            concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
+            add_menu_form(menu_model, menu_controller, m.id)
+            concat( "</li>")
+          end
+      end
       if(m.id!=1 and m.isChildOf(admin_parent))
         #check if your depth is correct
         if(admin_depth.include?(m.depth))
