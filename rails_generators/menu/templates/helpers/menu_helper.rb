@@ -42,6 +42,7 @@ module <%= "#{file_name.capitalize}Helper" %>
             add_menu_form(menu_model, menu_controller, m.id)
             concat( "</li>")
           end
+          firstm=FALSE
       end
       if(m.id!=1 and m.isChildOf(admin_parent))
         #check if your depth is correct
@@ -90,7 +91,21 @@ module <%= "#{file_name.capitalize}Helper" %>
         end
       end
     end
-    pmd.downto(1) {concat( "</ul>")}
+    if(firstm==TRUE and <%= "#{file_name.capitalize}" %>.exists?(admin_parent))
+      concat( "<ul id=\"ul_menu_#{admin_depth.first}\" class=\"ul_menu_depth_#{admin_depth.first} ul_menu\">")
+      if(admin_condition)
+        concat( "<li id=\"root_add_#{admin_parent}\" class=\"root_add\">")
+        concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id =>  admin_parent,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{admin_parent}"}))
+        add_menu_form(menu_model, menu_controller, admin_parent)
+        concat( "</li>")
+      end
+      pmd=admin_depth.first
+    elsif(firstm==TRUE)
+      concat( "<ul id=\"ul_menu_#{admin_depth.first}\" class=\"ul_menu_depth_#{admin_depth.first} ul_menu\">")
+      concat( "</ul>")
+    end
+    pmd.downto(admin_depth.first) {concat( "</ul>")}
+
     return nil
   end
   
