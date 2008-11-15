@@ -25,6 +25,11 @@ The current version creates:
 * Rails 2.2 
 
 == NOTES:
+* You can have multiple partials rendering different parts of the menu. Include in your partial the following line:
+  - <% mega_menus(name_of_the_menu_model, 'name_of_the_menu_controller', par, arr, parent_id) %>
+  - where par is the either TRUE(editor mode) or FALSE(normal mode), arr is an array containing the interval of depths to be shown(2..3 means display menus with depths 2 and 3), parent_id determines to which parent are this children related to( 5 would mean show only children whoose ancestor has id parent_id)
+* If you have multiple partials you should edit the rjs files in order to assure proper updating of each partial. By default only the generated partial is updated.
+
 * The menu is  located in <ul id="ul_menu_#{m.depth}" class="ul_menu_depth_#{m.depth}">
 * The selected menu is located in <li class="li_menu_class_selected">
 * This two id and class values can be easly changed by editing the mega_menu partial and its helper.

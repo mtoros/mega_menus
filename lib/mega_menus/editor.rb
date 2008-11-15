@@ -5,6 +5,22 @@ module MegaMenus
       base.extend ClassMethods
     end
 
+    def isChildOf( parent_id)
+      menu_id=self.id
+      while(menu_id != 1)
+        menu_id= self.class.parent_menu(menu_id).id
+        if(menu_id===parent_id)
+          return TRUE
+        end
+      end
+      return FALSE
+    end
+
+    def children
+      self.class.children(self.id)
+    end
+
+
     module ClassMethods
       def acts_as_menu
         self.send :extend, MenuClassMethods
@@ -61,10 +77,6 @@ module MegaMenus
 
     def children(menu_id)
       self.find(:all, :order=> "position" ,:conditions => { :parent_id=>menu_id})
-    end
-
-    def all_children(menu_id)
-      #to be written
     end
 
     def parent_menu(menu_id)
