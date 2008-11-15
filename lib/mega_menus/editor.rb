@@ -120,9 +120,11 @@ module MegaMenus
     
     def position_down(id)
       menu=self.find(id)
-      if(menu.position< (siblings(id).max {|c1,c2| c1.position <=> c2.position}).position)
+      if(!siblings(id).empty?)
+        if(menu.position< (siblings(id).max {|c1,c2| c1.position <=> c2.position}).position)
           switch_menu_positions(menu.parent_id, menu.position, menu.position+1)
         end
+      end
     end
 
     def edit(menu_id, new_parent_id, title, link)
