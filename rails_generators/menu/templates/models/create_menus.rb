@@ -13,7 +13,7 @@ class <%= "#{'Create' + file_name.capitalize + 's'}" %> < ActiveRecord::Migratio
     
     <%= file_name.capitalize %>.create :id => 1, :position=>0, :absolute_position=>0, :depth=>1, :parent_id=>0,:published=>FALSE
   end
-  
+
 
   def self.down
     drop_table <%= ":#{file_name + 's'}" %>
