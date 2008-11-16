@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = %q{mega_menus}
-  s.version = "0.7.3"
+  s.version = "0.7.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marko Toros"]
@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = %q{Adds a model, controller to perform the tasks in order to have a treeview menu. To use this gem simply install it and write script/generate menu name_of_the_menu}
   s.email = %q{mtoros@gmail.com}
   s.extra_rdoc_files = ["README.rdoc", "lib/mega_menus.rb", "lib/mega_menus/editor.rb", "lib/mega_menus/view_helpers.rb"]
-  s.files = ["Manifest", "README.rdoc", "init.rb", "Rakefile", "lib/mega_menus.rb", "lib/mega_menus/editor.rb", "lib/mega_menus/view_helpers.rb", "test/test_editor.rb", "rails_generators/menu/USAGE", "rails_generators/menu/menu_generator.rb", "rails_generators/menu/templates/controllers/menu_controller.rb", "rails_generators/menu/templates/views/add_menu_form.rjs", "rails_generators/menu/templates/views/add_menu.rjs", "rails_generators/menu/templates/views/delete_menu.rjs", "rails_generators/menu/templates/views/edit_menu_form.rjs", "rails_generators/menu/templates/views/edit_menu.rjs", "rails_generators/menu/templates/views/up_menu.rjs", "rails_generators/menu/templates/views/down_menu.rjs", "rails_generators/menu/templates/views/_menu.html.erb", "rails_generators/menu/templates/helpers/menu_helper.rb", "rails_generators/menu/templates/models/create_menus.rb", "rails_generators/menu/templates/models/menu.rb", "mega_menus.gemspec"]
+  s.files = ["Manifest", "README.rdoc", "init.rb", "Rakefile", "lib/mega_menus.rb", "lib/mega_menus/editor.rb", "lib/mega_menus/view_helpers.rb", "test/test_editor.rb", "rails_generators/menu/USAGE", "rails_generators/menu/menu_generator.rb", "rails_generators/menu/templates/controllers/menu_controller.rb", "rails_generators/menu/templates/views/add_menu_form.rjs", "rails_generators/menu/templates/views/add_menu.rjs", "rails_generators/menu/templates/views/delete_menu.rjs", "rails_generators/menu/templates/views/edit_menu_form.rjs", "rails_generators/menu/templates/views/edit_menu.rjs", "rails_generators/menu/templates/views/up_menu.rjs", "rails_generators/menu/templates/views/down_menu.rjs", "rails_generators/menu/templates/views/publish_menu.rjs", "rails_generators/menu/templates/views/_menu.html.erb", "rails_generators/menu/templates/helpers/menu_helper.rb", "rails_generators/menu/templates/models/create_menus.rb", "rails_generators/menu/templates/models/menu.rb", "mega_menus.gemspec"]
   s.has_rdoc = true
   s.homepage = %q{}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Mega_menus", "--main", "README.rdoc"]

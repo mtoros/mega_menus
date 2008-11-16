@@ -10,6 +10,15 @@ class <%= "#{file_name.capitalize+ "editor" + "Controller"}" %> < ApplicationCon
     
   end
 
+  def publish_menu
+    m=<%= file_name.capitalize %>.find(params[:menu_id].to_i)
+    if(m.published)
+      m.setNotPublished
+    else
+      m.setPublished
+    end
+  end
+
   def delete_menu
     temp=<%= file_name.capitalize %>.find(params[:menu_id]).parent_id
 

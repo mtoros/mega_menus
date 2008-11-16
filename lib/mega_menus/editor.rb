@@ -16,6 +16,32 @@ module MegaMenus
       return FALSE
     end
 
+    def setPublished
+      self.published=TRUE
+      self.save!
+      parent_id=self.id
+      allmenus=self.class.all
+      allmenus.each do |m|
+        if(m.isChildOf(parent_id))
+          m.published=TRUE
+          m.save!
+        end
+      end
+    end
+
+    def setNotPublished
+      self.published=FALSE
+      self.save!
+      parent_id=self.id
+      allmenus=self.class.all
+      allmenus.each do |m|
+        if(m.isChildOf(parent_id))
+          m.published=FALSE
+          m.save!
+        end
+      end
+    end
+
     def children
       self.class.children(self.id)
     end
@@ -61,7 +87,8 @@ module MegaMenus
       child = self.new( "title" => title,
                         "link" => link,
                         "parent_id" => menu_id,
-                        "position" => position)
+                        "position" => position,
+                        "published" => FALSE)
       child.save!
     end
 

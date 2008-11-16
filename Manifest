@@ -16,6 +16,7 @@ rails_generators/menu/templates/views/edit_menu_form.rjs
 rails_generators/menu/templates/views/edit_menu.rjs
 rails_generators/menu/templates/views/up_menu.rjs
 rails_generators/menu/templates/views/down_menu.rjs
+rails_generators/menu/templates/views/publish_menu.rjs
 rails_generators/menu/templates/views/_menu.html.erb
 rails_generators/menu/templates/helpers/menu_helper.rb
 rails_generators/menu/templates/models/create_menus.rb

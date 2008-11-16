@@ -12,6 +12,7 @@ class MenuGenerator < Rails::Generator::NamedBase
       m.template "views/edit_menu.rjs", "app/views/#{file_name}editor/edit_menu.rjs"
       m.template "views/up_menu.rjs", "app/views/#{file_name}editor/up_menu.rjs"
       m.template "views/down_menu.rjs", "app/views/#{file_name}editor/down_menu.rjs"
+      m.template "views/publish_menu.rjs", "app/views/#{file_name}editor/publish_menu.rjs"
       m.template "views/_menu.html.erb", "app/views/#{file_name}editor/_#{file_name}.html.erb"
       #create the helper
       m.template "helpers/menu_helper.rb", "app/helpers/#{file_name}_helper.rb"

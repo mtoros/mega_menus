@@ -34,59 +34,75 @@ module <%= "#{file_name.capitalize}Helper" %>
     firstm=TRUE
     allmenus.each do |m|
       #write the actual menu line for each record
-      if(m.id==1 and m.children.empty? and admin_depth.include?(m.depth))
-        concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth} ul_menu\">")
-          if(admin_condition)
-            concat( "<li id=\"root_add_#{m.id}\" class=\"root_add\">")
-            concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
-            add_menu_form(menu_model, menu_controller, m.id)
-            concat( "</li>")
-          end
-          firstm=FALSE
-      end
-      if(m.id!=1 and m.isChildOf(admin_parent))
-        #check if your depth is correct
-        if(admin_depth.include?(m.depth))
-          if(m.depth > pmd or firstm)
-            concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth} ul_menu\">")
+      if(m.published==TRUE or admin_condition==TRUE)
+        if(m.id==1 and m.children.empty? and admin_depth.include?(m.depth))
+          concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth} ul_menu\">")
             if(admin_condition)
-              concat( "<li id=\"root_add_#{m.parent_id}\" class=\"root_add\">")
-              concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.parent_id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
-              add_menu_form(menu_model, menu_controller, m.parent_id)
-              concat( "</li>")
-            end
-            firstm=FALSE
-          elsif(m.depth < pmd)
-            pmd.downto(m.depth+1) {concat( "</ul>")}
-          end
-          pmd=m.depth
-
-          #make the selected view appear nicer
-          if(m.id==menu_id.to_i)
-            concat( "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class_selected\">")
-            concat( "<a  class=\"selected_menu\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
-            session[:menu_id]=menu_id
-          else
-            concat( "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class\">")
-            concat( "<a  class=\"menu_link\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
-          end
-          if(admin_condition)
-            #remove the comment on the following line depending on the view you want to have
-            #concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
-            concat( link_to_remote(  "<span>Delete</span>", {:url => {:controller => menu_controller, :action => 'delete_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}, :confirm => "Are you sure?"}, {:class => "menu_links_delete", :title=> "Delete",:id => "delete_menu_link_#{m.id}"}))
-            concat( link_to_remote(  "<span>Edit</span>", {:url => {:controller => menu_controller, :action => 'edit_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_edit",:title=> "Edit", :id => "edit_menu_link_#{m.id}"}))
-            concat( link_to_remote(  "<span>Up</span>", {:url => {:controller => menu_controller, :action => 'up_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_up", :title=> "Up",:id => "up_menu_link_#{m.id}"}))
-            concat( link_to_remote(  "<span>Down</span>", {:url => {:controller => menu_controller, :action => 'down_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_down", :title=> "Down", :id => "down_menu_link_#{m.id}"}))
-            edit_menu_form(menu_model, menu_controller,m)
-          end
-          concat( "</li>")
-          if(admin_condition and m.children.empty? and admin_depth.include?(m.depth+1))
-            concat( "<ul id=\"ul_menu_#{m.depth+1}\" class=\"ul_menu_depth_#{m.depth+1} ul_menu\">")
               concat( "<li id=\"root_add_#{m.id}\" class=\"root_add\">")
               concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
               add_menu_form(menu_model, menu_controller, m.id)
               concat( "</li>")
-            concat( "</ul>")
+            end
+            firstm=FALSE
+        end
+        if(m.id!=1 and m.isChildOf(admin_parent))
+          #check if your depth is correct
+          if(admin_depth.include?(m.depth))
+            if(m.depth > pmd or firstm)
+              concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth} ul_menu\">")
+              if(admin_condition)
+                concat( "<li id=\"root_add_#{m.parent_id}\" class=\"root_add\">")
+                concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.parent_id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
+                add_menu_form(menu_model, menu_controller, m.parent_id)
+                concat( "</li>")
+              end
+              firstm=FALSE
+            elsif(m.depth < pmd)
+              pmd.downto(m.depth+1) {concat( "</ul>")}
+            end
+            pmd=m.depth
+
+            #make the selected view appear nicer
+            if(m.id==menu_id.to_i)
+              concat( "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class_selected\">")
+              concat( "<a  class=\"selected_menu\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
+              session[:menu_id]=menu_id
+            else
+              concat( "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class\">")
+              concat( "<a  class=\"menu_link\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
+            end
+            if(admin_condition)
+              #remove the comment on the following line depending on the view you want to have
+              #concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
+              # DELETE
+              concat( link_to_remote(  "<span>Delete</span>", {:url => {:controller => menu_controller, :action => 'delete_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}, :confirm => "Are you sure?"}, {:class => "menu_links_delete", :title=> "Delete",:id => "delete_menu_link_#{m.id}"}))
+              # EDIT
+              concat( link_to_remote(  "<span>Edit</span>", {:url => {:controller => menu_controller, :action => 'edit_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_edit",:title=> "Edit", :id => "edit_menu_link_#{m.id}"}))
+              # UP
+              concat( link_to_remote(  "<span>Up</span>", {:url => {:controller => menu_controller, :action => 'up_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_up", :title=> "Up",:id => "up_menu_link_#{m.id}"}))
+              # DOWN
+              concat( link_to_remote(  "<span>Down</span>", {:url => {:controller => menu_controller, :action => 'down_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_down", :title=> "Down", :id => "down_menu_link_#{m.id}"}))
+              # PUBLISH
+              if(m.published==TRUE)
+                mp="menu_links_published"
+                mpt="published"
+              else
+                mp="menu_links_not_published"
+                mpt="not published"
+              end
+              concat( link_to_remote(  "<span>Publish</span>", {:url => {:controller => menu_controller, :action => 'publish_menu', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => mp, :title=> mpt, :id => "publish_menu_link_#{m.id}"}))
+              # EDIT FORM
+              edit_menu_form(menu_model, menu_controller,m)
+            end
+            concat( "</li>")
+            if(admin_condition and m.children.empty? and admin_depth.include?(m.depth+1))
+              concat( "<ul id=\"ul_menu_#{m.depth+1}\" class=\"ul_menu_depth_#{m.depth+1} ul_menu\">")
+                concat( "<li id=\"root_add_#{m.id}\" class=\"root_add\">")
+                concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
+                add_menu_form(menu_model, menu_controller, m.id)
+                concat( "</li>")
+              concat( "</ul>")
+            end
           end
         end
       end
