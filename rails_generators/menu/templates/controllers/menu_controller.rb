@@ -11,8 +11,12 @@ class <%= "#{file_name.capitalize+ "editor" + "Controller"}" %> < ApplicationCon
   end
 
   def delete_menu
+    temp=<%= file_name.capitalize %>.find(params[:menu_id]).parent_id
+
     <%= file_name.capitalize %>.delete_item(params[:menu_id].to_i)
     <%= file_name.capitalize %>.determine_abs_position_and_depth
+    session[:menu_id]=temp
+    params[:menu_id]=temp
   end
 
   def edit_menu_form
