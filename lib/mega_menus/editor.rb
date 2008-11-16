@@ -16,13 +16,28 @@ module MegaMenus
       return FALSE
     end
 
+    def isRootOf( child_id)
+      menu_id=self.id
+      while(child_id != 1)
+        child_id= self.class.parent_menu(child_id).id
+        if(menu_id===child_id)
+          return TRUE
+        end
+      end
+      return FALSE
+    end
+
     def setPublished
       self.published=TRUE
       self.save!
-      parent_id=self.id
+      menu_id=self.id
       allmenus=self.class.all
       allmenus.each do |m|
-        if(m.isChildOf(parent_id))
+        if(m.isChildOf(menu_id))
+          m.published=TRUE
+          m.save!
+        end
+        if(m.isRootOf(menu_id))
           m.published=TRUE
           m.save!
         end

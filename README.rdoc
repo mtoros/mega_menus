@@ -15,6 +15,7 @@ The current version creates:
 * a generator for rails to ease the developers work for using this gem, the menu generator creates a template menu structure that the developer can customize.
 * uses session[:menu_id] to identify the selected menu
 * possibility to render different menu depths in different places
+* added a publish button in order to hide or set visible menus (publish model field)
 
 
 == STATUS
