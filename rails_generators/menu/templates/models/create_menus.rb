@@ -7,7 +7,7 @@ class <%= "#{'Create' + file_name.capitalize + 's'}" %> < ActiveRecord::Migratio
       t.integer    :position
       t.integer    :absolute_position
       t.integer    :depth
-      t.bool    :published
+      t.boolean    :published
       t.timestamps
     end
     
