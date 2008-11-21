@@ -65,11 +65,11 @@ module <%= "#{file_name.capitalize}Helper" %>
             #make the selected view appear nicer
             if(m.id==menu_id.to_i)
               concat( "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class_selected\">")
-              concat( "<a  class=\"selected_menu\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
+              concat( "<a  class=\"selected_menu\" id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
               session[:menu_id]=menu_id
             else
               concat( "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class\">")
-              concat( "<a  class=\"menu_link\", id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
+              concat( "<a  class=\"menu_link\" id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
             end
             if(admin_condition)
               #remove the comment on the following line depending on the view you want to have
@@ -118,7 +118,7 @@ module <%= "#{file_name.capitalize}Helper" %>
       pmd=admin_depth.first
     elsif(firstm==TRUE)
       concat( "<ul id=\"ul_menu_#{admin_depth.first}\" class=\"ul_menu_depth_#{admin_depth.first} ul_menu\">")
-      concat( "</ul>")
+      pmd=admin_depth.first
     end
     pmd.downto(admin_depth.first) {concat( "</ul>")}
 
@@ -128,10 +128,10 @@ module <%= "#{file_name.capitalize}Helper" %>
   def add_menu_form(menu_model, menu_controller, menu_id)
       form_remote_tag(  :url => {:controller=>menu_controller, :action=> 'add_menu'}, :html => {:id => "add_menu_form_#{menu_id}", :class => "add_menu_form", :style=>"display: none"})  do
       concat( "Title:" )
-      concat( text_field_tag( "title"))
+      concat( text_field_tag( "title", "", :id=>"a_tft_title_#{menu_id}"))
       concat( "Link:")
-      concat( text_field_tag("link"))
-      concat( hidden_field_tag(:menu_id, menu_id))
+      concat( text_field_tag("link", "",:id=>"a_tft_link_#{menu_id}"))
+      concat( hidden_field_tag(:menu_id, menu_id, :id=>"a_tft_menu_id_#{menu_id}"))
       #content_tag :button, "Submit", {:type=>"submit", :class=>"button-submit"}
       concat( submit_tag( "Add", :class => "add_button"))
       end
@@ -142,12 +142,12 @@ module <%= "#{file_name.capitalize}Helper" %>
   def edit_menu_form(menu_model, menu_controller,m)
     form_remote_tag(  :url => {:controller=>menu_controller, :action=> 'edit_menu'}, :html => {:id => "edit_menu_form_#{m.id}",:class => "edit_menu_form", :style=>"display: none"})  do
       concat( "Title:")
-      concat( text_field_tag( "title", m.title))
+      concat( text_field_tag( "title", m.title, :id=>"e_tft_title_#{m.id}" ))
       concat( "Link:")
-      concat( text_field_tag( "link", m.link))
+      concat( text_field_tag( "link", m.link,:id=>"e_tft_link_#{m.id}"))
       concat( "Parent:")
-      concat( text_field_tag("parent_id", m.parent_id))
-      concat( hidden_field_tag( :menu_id, m.id))
+      concat( text_field_tag("parent_id", m.parent_id, :id=>"e_tft_parent_id_#{m.id}"))
+      concat( hidden_field_tag( :menu_id, m.id,:id=>"e_tft_menud_id_#{m.id}"))
       #concat content_tag :button, "Submit", {:type=>"submit", :class=>"button-submit"}
       concat( submit_tag( "Edit", :class => "edit__button"))
     end
