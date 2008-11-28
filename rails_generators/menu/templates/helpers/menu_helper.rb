@@ -36,11 +36,13 @@ module <%= "#{file_name.capitalize}Helper" %>
       #write the actual menu line for each record
       if(m.published==TRUE or admin_condition==TRUE)
         if(m.id==1 and m.children.empty? and admin_depth.include?(m.depth))
+          if(admin_condition)
+            add_menu_form(menu_model, menu_controller, m.id)
+          end
           concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth} ul_menu\">")
             if(admin_condition)
               concat( "<li id=\"root_add_#{m.id}\" class=\"root_add\">")
               concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
-              add_menu_form(menu_model, menu_controller, m.id)
               concat( "</li>")
             end
             firstm=FALSE
@@ -49,11 +51,13 @@ module <%= "#{file_name.capitalize}Helper" %>
           #check if your depth is correct
           if(admin_depth.include?(m.depth))
             if(m.depth > pmd or firstm)
+              if(admin_condition)
+                add_menu_form(menu_model, menu_controller, m.parent_id)
+              end
               concat( "<ul id=\"ul_menu_#{m.depth}\" class=\"ul_menu_depth_#{m.depth} ul_menu\">")
               if(admin_condition)
                 concat( "<li id=\"root_add_#{m.parent_id}\" class=\"root_add\">")
                 concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', :menu_id => m.parent_id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
-                add_menu_form(menu_model, menu_controller, m.parent_id)
                 concat( "</li>")
               end
               firstm=FALSE
@@ -63,9 +67,9 @@ module <%= "#{file_name.capitalize}Helper" %>
             pmd=m.depth
 
             #make the selected view appear nicer
-            if(m.id==menu_id.to_i)
-              concat( "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class_selected\">")
-              concat( "<a  class=\"selected_menu\" id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
+            if(m.id==menu_id.to_i || m.isRootOf(menu_id.to_i))
+              concat( "<li id=\"li_menu_#{m.id}\" class=\"active\">")
+              concat( "<a  class=\"active\" id =\"menu_link_#{m.id}\" href=\"#{m.link}?menu_id=#{m.id}\"> #{m.title} </a>")
               session[:menu_id]=menu_id
             else
               concat( "<li id=\"li_menu_#{m.id}\" class=\"li_menu_class\">")
@@ -153,4 +157,5 @@ module <%= "#{file_name.capitalize}Helper" %>
     end
     return nil
   end
+
 end
