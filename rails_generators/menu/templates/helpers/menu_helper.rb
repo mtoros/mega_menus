@@ -35,11 +35,11 @@ module <%= "#{file_name.capitalize}editorHelper" %>
     allmenus.each do |m|
       #write the actual menu line for each record
       if(m.published==TRUE or admin_condition==TRUE)
-        if(m.id==1 and m.children.empty? and admin_depth.include?(m.depth))
+        if(m.id==1 and m.children.empty? and admin_depth.include?(m.depth+1))
           if(admin_condition)
             add_menu_form(menu_model, menu_controller, m.id)
           end
-          concat( "<ul id=\"ul_<%= "#{file_name}" %>_#{m.depth}\" class=\"ul_<%= "#{file_name}" %>_depth_#{m.depth} ul_<%= "#{file_name}" %>\">")
+          concat( "<ul id=\"ul_<%= "#{file_name}" %>_#{m.depth+1}\" class=\"ul_<%= "#{file_name}" %>_depth_#{m.depth} ul_<%= "#{file_name}" %>\">")
             if(admin_condition)
               concat( "<li id=\"root_<%= "#{file_name}" %>_add_#{m.id}\" class=\"<%= "#{file_name}" %>_root_add\">")
               concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => '<%= "add_menu_form" %>', '<%=  "#{file_name}_id" %>' => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add", :title=> "Add",:id => "add_<%= "#{file_name}" %>_link_#{m.id}"}))
@@ -148,12 +148,18 @@ module <%= "#{file_name.capitalize}editorHelper" %>
   end
 
 
-  def edit_menu_form(menu_model, menu_controller,m)
+  def edit_menu_form(menu_model, menu_controller, m)
 
     #select only menus that are not submenus!
-    cmenus=menu_model.all
+    cmenus=menu_model.find(:all, :order => "absolute_position")
     cmenus.delete_if{|ame| (ame.id==m.id || ame.isChildOf(m.id))}
-
+    cmenus.each do |cm|
+      mtitle=cm.title
+      cm.depth.times do
+        mtitle="--" + mtitle
+      end
+      cm.title=mtitle
+    end
     form_remote_tag(  :url => {:controller=>menu_controller, :action=> 'edit_menu'}, :html => {:id => "edit_<%= "#{file_name}" %>_form_#{m.id}",:class => "edit_<%= "#{file_name}" %>_form", :style=>"display: none"})  do
       concat( "Title:")
       concat( text_field_tag( "title", m.title, :id=>"e_tft_title_#{m.id}" ))
@@ -161,7 +167,7 @@ module <%= "#{file_name.capitalize}editorHelper" %>
       concat( text_field_tag( "link", m.link,:id=>"e_tft_link_#{m.id}"))
       concat( "Parent:")
       #concat( text_field_tag("parent_id", m.parent_id, :id=>"e_tft_parent_id_#{m.id}"))
-      concat( select_tag( "parent_id", options_for_select(cmenus.map {|c| c.id}), :id=>"e_tft_parent_id_#{m.id}"))
+      concat( select_tag( "parent_id", options_from_collection_for_select(cmenus, :id, :title), :id=>"e_tft_parent_id_#{m.id}"))
       concat( hidden_field_tag( <%= ":#{file_name}_id" %>, m.id,:id=>"e_tft_<%= "#{file_name}" %>_id_#{m.id}"))
       #concat content_tag :button, "Submit", {:type=>"submit", :class=>"button-submit"}
       concat( submit_tag( "Edit", :class => "edit__button"))
