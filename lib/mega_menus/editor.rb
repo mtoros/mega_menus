@@ -18,7 +18,8 @@ module MegaMenus
 
     def isRootOf( child_id)
       menu_id=self.id
-      while(child_id != 1)
+
+      while(child_id!=1)
         child_id= self.class.parent_menu(child_id).id
         if(menu_id===child_id)
           return TRUE
@@ -178,6 +179,7 @@ module MegaMenus
         newmenu.save!
         children(menu.id).each do |c|
           c.parent_id=newmenu.id
+          c.save!
         end
         siblings(menu).each do |s|
           if(s.position>menu.position)

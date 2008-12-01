@@ -15,7 +15,7 @@ class MenuGenerator < Rails::Generator::NamedBase
       m.template "views/publish_menu.rjs", "app/views/#{file_name}editor/publish_menu.rjs"
       m.template "views/_menu.html.erb", "app/views/#{file_name}editor/_#{file_name}.html.erb"
       #create the helper
-      m.template "helpers/menu_helper.rb", "app/helpers/#{file_name}_helper.rb"
+      m.template "helpers/menu_helper.rb", "app/helpers/#{file_name}editor_helper.rb"
       #create the models
       m.directory 'db/migrate/'
       m.template "models/create_menus.rb", "db/migrate/#{Time.now.strftime("%Y%m%d%H%M%S")}_create_#{file_name}s.rb"

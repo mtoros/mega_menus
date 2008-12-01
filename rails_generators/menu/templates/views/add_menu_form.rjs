@@ -1,2 +1,2 @@
-page.toggle "add_menu_form_#{@menu_id}"
+page.toggle "<%="add_#{file_name}"%>_form_#{@menu_id}"
 
