@@ -120,7 +120,7 @@ module <%= "#{file_name.capitalize}editorHelper" %>
       concat( "<ul id=\"ul_<%= "#{file_name}" %>_#{admin_depth.first}\" class=\"ul_<%= "#{file_name}" %>_depth_#{admin_depth.first} ul_<%= "#{file_name}" %>\">")
       if(admin_condition)
         concat( "<li id=\"root_<%= "#{file_name}" %>_add_#{admin_parent}\" class=\"root_<%= "#{file_name}" %>_add\">")
-        concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= "#{file_name}_id" %> =>  admin_parent,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add", :title=> "Add",:id => "add_<%="#{file_name}"%>_link_#{admin_parent}"}))
+        concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= ":#{file_name}_id" %> =>  admin_parent,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add", :title=> "Add",:id => "add_<%="#{file_name}"%>_link_#{admin_parent}"}))
         add_menu_form(menu_model, menu_controller, admin_parent)
         concat( "</li>")
       end

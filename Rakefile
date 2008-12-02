@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'echoe'
 
-  Echoe.new('mega_menus', '0.8.2') do |p|
+  Echoe.new('mega_menus', '0.8.3') do |p|
     p.summary        = "Treeview menu Gem for Rails"
     p.description    = "Adds a model, controller to perform the tasks in order to have a treeview menu. To use this gem simply install it and write script/generate menu name_of_the_menu"
     p.author         = ['Marko Toros']
