@@ -42,7 +42,7 @@ module <%= "#{file_name.capitalize}editorHelper" %>
           concat( "<ul id=\"ul_<%= "#{file_name}" %>_#{m.depth+1}\" class=\"ul_<%= "#{file_name}" %>_depth_#{m.depth} ul_<%= "#{file_name}" %>\">")
             if(admin_condition)
               concat( "<li id=\"root_<%= "#{file_name}" %>_add_#{m.id}\" class=\"<%= "#{file_name}" %>_root_add\">")
-              concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => '<%= "add_menu_form" %>', '<%=  "#{file_name}_id" %>' => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add", :title=> "Add",:id => "add_<%= "#{file_name}" %>_link_#{m.id}"}))
+              concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => '<%= "add_menu_form" %>', '<%=  "#{file_name}_id" %>' => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add all_menus_links_add", :title=> "Add",:id => "add_<%= "#{file_name}" %>_link_#{m.id}"}))
               concat( "</li>")
             end
             firstm=FALSE
@@ -57,7 +57,7 @@ module <%= "#{file_name.capitalize}editorHelper" %>
               concat( "<ul id=\"ul_<%= "#{file_name}" %>_#{m.depth}\" class=\"ul_<%= "#{file_name}" %>_depth_#{m.depth} ul_<%= "#{file_name}" %>\">")
               if(admin_condition)
                 concat( "<li id=\"root_add_#{m.parent_id}\" class=\"root_add\">")
-                concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= ":#{file_name}_id" %> => m.parent_id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add", :title=> "Add",:id => "add_<%= "#{file_name}" %>_link_#{m.id}"}))
+                concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= ":#{file_name}_id" %> => m.parent_id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add all_menus_links_add", :title=> "Add",:id => "add_<%= "#{file_name}" %>_link_#{m.id}"}))
                 concat( "</li>")
               end
               firstm=FALSE
@@ -83,19 +83,19 @@ module <%= "#{file_name.capitalize}editorHelper" %>
               #remove the comment on the following line depending on the view you want to have
               #concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= "#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_links_add", :title=> "Add",:id => "add_menu_link_#{m.id}"}))
               # DELETE
-              concat( link_to_remote(  "<span>Delete</span>", {:url => {:controller => menu_controller, :action => 'delete_menu', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}, :confirm => "Are you sure?"}, {:class => "<%= "#{file_name}" %>_links_delete", :title=> "Delete",:id => "delete_<%= "#{file_name}" %>_link_#{m.id}"}))
+              concat( link_to_remote(  "<span>Delete</span>", {:url => {:controller => menu_controller, :action => 'delete_menu', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}, :confirm => "Are you sure?"}, {:class => "<%= "#{file_name}" %>_links_delete all_menus_links_delete", :title=> "Delete",:id => "delete_<%= "#{file_name}" %>_link_#{m.id}"}))
               # EDIT
-              concat( link_to_remote(  "<span>Edit</span>", {:url => {:controller => menu_controller, :action => 'edit_menu_form', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_edit",:title=> "Edit", :id => "edit_<%= "#{file_name}" %>_link_#{m.id}"}))
+              concat( link_to_remote(  "<span>Edit</span>", {:url => {:controller => menu_controller, :action => 'edit_menu_form', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_edit all_menus_links_edit",:title=> "Edit", :id => "edit_<%= "#{file_name}" %>_link_#{m.id}"}))
               # UP
-              concat( link_to_remote(  "<span>Up</span>", {:url => {:controller => menu_controller, :action => 'up_menu', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_up", :title=> "Up",:id => "up_<%= "#{file_name}" %>_link_#{m.id}"}))
+              concat( link_to_remote(  "<span>Up</span>", {:url => {:controller => menu_controller, :action => 'up_menu', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_up all_menus_links_up", :title=> "Up",:id => "up_<%= "#{file_name}" %>_link_#{m.id}"}))
               # DOWN
-              concat( link_to_remote(  "<span>Down</span>", {:url => {:controller => menu_controller, :action => 'down_menu', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_down", :title=> "Down", :id => "down_<%= "#{file_name}" %>_link_#{m.id}"}))
+              concat( link_to_remote(  "<span>Down</span>", {:url => {:controller => menu_controller, :action => 'down_menu', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_down all_menus_links_down", :title=> "Down", :id => "down_<%= "#{file_name}" %>_link_#{m.id}"}))
               # PUBLISH
               if(m.published==TRUE)
-                mp="<%= "#{file_name}" %>_links_published"
+                mp="<%= "#{file_name}" %>_links_published all_menus_links_published"
                 mpt="published"
               else
-                mp="<%= "#{file_name}" %>_links_not_published"
+                mp="<%= "#{file_name}" %>_links_not_published all_menus_links_not_published"
                 mpt="not published"
               end
               concat( link_to_remote(  "<span>Publish</span>", {:url => {:controller => menu_controller, :action => 'publish_menu', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => mp, :title=> mpt, :id => "publish_menu_link_#{m.id}"}))
@@ -107,7 +107,7 @@ module <%= "#{file_name.capitalize}editorHelper" %>
             if(admin_condition and m.children.empty? and admin_depth.include?(m.depth+1))
               concat( "<ul id=\"ul_menu_#{m.depth+1}\" class=\"ul_<%= "#{file_name}" %>_depth_#{m.depth+1} ul_<%= "#{file_name}" %>\">")
                 concat( "<li id=\"root_<%= "#{file_name}" %>_add_#{m.id}\" class=\"root_<%= "#{file_name}" %>_add\">")
-                concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_<%= "#{file_name}" %>_add", :title=> "Add",:id => "add_<%= "#{file_name}" %>_link_#{m.id}"}))
+                concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= ":#{file_name}_id" %> => m.id,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "menu_<%= "#{file_name}" %>_add all_menus_links_add", :title=> "Add",:id => "add_<%= "#{file_name}" %>_link_#{m.id}"}))
                 add_menu_form(menu_model, menu_controller, m.id)
                 concat( "</li>")
               concat( "</ul>")
@@ -120,7 +120,7 @@ module <%= "#{file_name.capitalize}editorHelper" %>
       concat( "<ul id=\"ul_<%= "#{file_name}" %>_#{admin_depth.first}\" class=\"ul_<%= "#{file_name}" %>_depth_#{admin_depth.first} ul_<%= "#{file_name}" %>\">")
       if(admin_condition)
         concat( "<li id=\"root_<%= "#{file_name}" %>_add_#{admin_parent}\" class=\"root_<%= "#{file_name}" %>_add\">")
-        concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= ":#{file_name}_id" %> =>  admin_parent,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add", :title=> "Add",:id => "add_<%="#{file_name}"%>_link_#{admin_parent}"}))
+        concat( link_to_remote(  "<span>Add</span>", {:url => {:controller => menu_controller, :action => 'add_menu_form', <%= ":#{file_name}_id" %> =>  admin_parent,:menu_model=>menu_model, :menu_controller=>menu_controller}}, {:class => "<%= "#{file_name}" %>_links_add all_menus_links_add", :title=> "Add",:id => "add_<%="#{file_name}"%>_link_#{admin_parent}"}))
         add_menu_form(menu_model, menu_controller, admin_parent)
         concat( "</li>")
       end
