@@ -106,6 +106,7 @@ module MegaMenus
                         "position" => position,
                         "published" => FALSE)
       child.save!
+      return child
     end
 
     def assign_position(parent_id)
